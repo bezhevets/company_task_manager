@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    {{ task.name }}
+    {% if task.priority == "Urgent"  %}
+      <span class="badge badge-pill badge-danger">{{ task.priority }}</span>
+    {% endif %}
+    <a href="{% url 'cabinet:task-delete' pk=task.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+{##}
+    <a href="{% url 'cabinet:task-update' pk=task.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+  </h1>
+  <h3>Description:</h3>
+    <p>{{ task.description }}</p>
+  <p>Type: {{ task.task_type }}</p>
+  <h5>Deadline: {{ task.deadline }}</h5>
+  <h1>
+    Assignees
+
+{#    {% if car in user.cars.all %}#}
+{#      <a href="{% url 'taxi:toggle-car-assign' pk=car.id %}" class="btn btn-danger link-to-page">#}
+{#        Delete me from this car#}
+{#      </a>#}
+{#    {% else %}#}
+{#      <a href="{% url 'taxi:toggle-car-assign' pk=car.id %}" class="btn btn-success link-to-page">#}
+{#        Assign me from this car#}
+{#      </a>#}
+{#    {% endif %}#}
+
+  </h1>
+  <hr>
+  <ul>
+    {% for assigne in task.assignees.all %}
+      <li>{{ assigne }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
