@@ -2,7 +2,11 @@
 
 {% block content %}
   <div class="container-1">
-    <h1>Home</h1>
+    <h1>Task list
+    <a href="{% url 'cabinet:task-create' %}" class="btn btn-primary link-to-page">
+        Create
+      </a>
+    </h1>
     {% if user.is_authenticated %}
       <p>Hello <strong>{{ user.username }}</strong>! <a href="{% url 'logout' %}" class="btn btn-info">Logout</a></p>
     {% else %}
