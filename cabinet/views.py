@@ -28,6 +28,11 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     template_name = "cabinet/task_list.html"
     context_object_name = "task_list"
 
+    # def get(self, request):
+    #     # Ваш код для отримання списку завдань
+    #     tasks = Task.objects.all()
+    #     return render(request, "cabinet/index.html", {"tasks": tasks})
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
 
