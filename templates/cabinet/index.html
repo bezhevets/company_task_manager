@@ -19,7 +19,7 @@
                   </div>
                 </div>
                 <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                  <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
                     <i class="ni ni-books text-lg opacity-10" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                  <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
                     <i class="ni ni-collection text-lg opacity-10" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -62,7 +62,7 @@
                     </div>
                   </div>
                   <div class="col-4 text-end">
-                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <div class="icon icon-shape bg-gradient-dark shadow text-center border-radius-md">
                       <i class="ni ni-circle-08 text-lg opacity-10" aria-hidden="true"></i>
                     </div>
                   </div>
@@ -82,10 +82,12 @@
                 <div class="col-lg-6">
                   <div class="d-flex flex-column h-100">
                     <p class="mb-1 pt-2 text-bold">Last Task</p>
-                    <h5 class="font-weight-bolder">Name Task</h5>
-                    <p class="mb-5">Description</p>
+                    <h5 class="font-weight-bolder">{{ last_task.name }}</h5>
+                    <p class="mb-5">{{ last_task.description }}</p>
                     <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
-                      Read More (detail task)
+                      <a href="{% url "cabinet:task-detail" pk=last_task.id %}" class="btn btn-dark link-to-page">
+                        More info
+                      </a>
                       <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
                     </a>
                   </div>
