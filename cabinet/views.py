@@ -16,13 +16,16 @@ def index(request) -> str:
     num_not_completed_task = not_completed_task.count()
     last_task = all_task.first()
 
+    tasks_for_user = all_task.filter(assignees=request.user.id)
+    tasks_for_user_completed = tasks_for_user.filter(is_completed=True)
+
     context = {
         "num_not_completed_task": num_not_completed_task,
         "last_task": last_task,
-        "all_task": all_task,
         "not_completed_task": not_completed_task,
+        "tasks_for_user": tasks_for_user,
+        "tasks_for_user_completed": tasks_for_user_completed,
     }
-    print(request.user.id)
 
     return render(request, "cabinet/index.html", context=context)
 

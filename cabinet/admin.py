@@ -19,7 +19,7 @@ class WorkerAdmin(UserAdmin):
                     "fields": (
                         "first_name",
                         "last_name",
-                        "license_number",
+                        "position",
                     )
                 },
             ),
