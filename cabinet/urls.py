@@ -1,9 +1,10 @@
 from django.urls import path
 
-from cabinet.views import TaskListView, TaskCreateView, TaskUpdateView, TaskDetailView, TaskDeleteView
+from cabinet.views import TaskListView, TaskCreateView, TaskUpdateView, TaskDetailView, TaskDeleteView, index
 
 urlpatterns = [
-    path("", TaskListView.as_view(), name="task-list"),
+    path("", index, name="index"),
+    path("tasks/", TaskListView.as_view(), name="task-list"),
     path(
         "task/create/",
         TaskCreateView.as_view(),
