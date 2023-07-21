@@ -33,4 +33,7 @@
   {% else %}
     <p>There are no post in feed</p>
   {% endif %}
+  {% block pagination %}
+        {% include "includes/pagination.html" %}
+  {% endblock %}
 {% endblock %}
