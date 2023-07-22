@@ -10,7 +10,7 @@ from cabinet.views import (
     TaskDeleteView,
     WorkerCreateView,
     WorkerDetailView,
-    WorkerUpdateView, password_change,
+    WorkerUpdateView, password_change, TaskCompletedView,
 )
 
 urlpatterns = [
@@ -35,6 +35,11 @@ urlpatterns = [
         "task/<int:pk>/delete/",
         TaskDeleteView.as_view(),
         name="task-delete"
+    ),
+    path(
+        "task/<int:pk>/task_completed/",
+        TaskCompletedView.as_view(),
+        name="task-completed"
     ),
     path(
         "worker/create/",

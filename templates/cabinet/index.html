@@ -232,17 +232,11 @@
                           <td class="align-middle text-center text-sm">
                             <span class="text-xs font-weight-bold"> {{ task.deadline }} </span>
                           </td>
-                          <td class="align-middle">
-                            <div class="progress-wrapper w-75 mx-auto">
-                              <div class="progress-info">
-                                <div class="progress-percentage">
-                                  <span class="text-xs font-weight-bold">{% now "Y-m-d H:i:s" %}</span>
-                                </div>
-                              </div>
-                              <div class="progress">
-                                <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </div>
+                          <td class="align-middle" style="text-align: center;">
+                            <form method="post" action="{% url 'cabinet:task-completed' pk=task.id %}">
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-success link-to-page">Ready</button>
+                            </form>
                           </td>
                         </tr>
                         {% endif %}
@@ -268,8 +262,10 @@
                 {% if tasks_for_user_completed %}
                   {% for task in tasks_for_user_completed %}
                     <div class="d-flex justify-content-between align-items-center">
-                      <p>{{ task.name }}</p>
-                      <p>Done</p>
+                      <a href="{% url "cabinet:task-detail" pk=task.id %}">
+                        <p>{{ task.name }}</p>
+                      </a>
+                      <span class="badge badge-sm bg-gradient-success">Done</span>
                     </div>
                   {% endfor %}
                   {% else %}
@@ -283,22 +279,3 @@
     </div>
 
 {% endblock content %}
-
-
-{#{% block content %}#}
-{#  <div class="container-1">#}
-{#    <h1>Home  page</h1>#}
-{#    {% if user.is_authenticated %}#}
-{#      <p>Hello <strong>{{ user.username }}</strong>! <a href="{% url 'logout' %}" class="btn btn-info">Logout</a></p>#}
-{#    {% else %}#}
-{#      <a href="{% url 'login' %}" class="btn btn-info">Login</a>#}
-{#    {% endif %}#}
-{#  </div>#}
-{#    <div class="container">#}
-{#        <div class="row">#}
-{#            <div class="col-xl-3 d-none d-xl-block">Total uncompleted tasks:{{ num_not_completed_task }}</div>#}
-{#            <div class="col-md-8 col-xl-6">Last task: {{ last_task }}</div>#}
-{#            <div class="col-md-4 col-xl-3">R</div>#}
-{#        </div>#}
-{#    </div>#}
-{#{% endblock %}#}
