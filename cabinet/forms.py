@@ -1,13 +1,12 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
-from django.forms import DateTimeInput, Select, NullBooleanSelect, RadioSelect
+from django.core.exceptions import ValidationError
+from django.forms import DateTimeInput, NullBooleanSelect, RadioSelect
+from django.utils import timezone
 
 from cabinet.models import Task, Worker
 
-
-# from django.contrib.auth.forms import UserCreationForm
-# from django.core.exceptions import ValidationError
 
 class TaskCreateForm(forms.ModelForm):
     assignees = forms.ModelMultipleChoiceField(
@@ -24,6 +23,12 @@ class TaskCreateForm(forms.ModelForm):
             "is_completed": NullBooleanSelect(),
             "priority": RadioSelect()
         }
+
+    def clean_deadline(self):
+        deadline = self.cleaned_data["deadline"]
+        if deadline < timezone.now():
+            raise ValidationError("The date is incorrect. Date < today's date")
+        return deadline
 
 
 class TaskUpdateForm(forms.ModelForm):
