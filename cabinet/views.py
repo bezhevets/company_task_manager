@@ -1,11 +1,11 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from cabinet.forms import TaskSearchForm, TaskCreateForm
-from cabinet.models import Task
+from cabinet.forms import TaskSearchForm, TaskCreateForm, WorkerCreateForm
+from cabinet.models import Task, Worker
 
 
 @login_required
@@ -76,3 +76,15 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy("cabinet:task-list")
+
+
+def is_admin(user):
+    return user.is_superuser
+
+
+class WorkerCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
+    model = Worker
+    form_class = WorkerCreateForm
+
+    def test_func(self):
+        return is_admin(self.request.user)

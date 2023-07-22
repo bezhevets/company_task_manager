@@ -61,21 +61,21 @@
 
         <li class="nav-item">
             <a class="nav-link" href="{% url 'cabinet:task-create' %}">
-                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <!-- SVG-код для "+" -->
-                    <svg width="12px" height="12px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g transform="translate(-247.000000, -573.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                <g transform="translate(242.000000, 568.000000)">
-                                    <g transform="translate(5.000000, 5.000000)">
-                                        <polygon points="0 0 14 0 14 14 0 14"></polygon>
-                                        <polygon fill="#111827" opacity="0.6" points="7 0 7 14 8 14 8 0"></polygon>
-                                    </g>
-                                </g>
-                            </g>
+              <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <!-- SVG-код для "+" -->
+                <svg width="12px" height="12px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g transform="translate(-247.000000, -573.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                      <g transform="translate(242.000000, 568.000000)">
+                        <g transform="translate(5.000000, 5.000000)">
+                          <path class="color-background" d="M12,0 C5.383,0 0,5.383 0,12 C0,18.617 5.383,24 12,24 C18.617,24 24,18.617 24,12 C24,5.383 18.617,0 12,0 Z M12,22 C6.486,22 2,17.514 2,12 C2,6.486 6.486,2 12,2 C17.514,2 22,6.486 22,12 C22,17.514 17.514,22 12,22 Z"></path>
+                          <path class="color-background" d="M12,5 L11,5 L11,11 L5,11 L5,12 L11,12 L11,18 L12,18 L12,12 L18,12 L18,11 L12,11 L12,5 Z"></path>
                         </g>
-                    </svg>
-                </div>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
                 <span class="nav-link-text ms-1">Create Task</span>
             </a>
         </li>
@@ -107,6 +107,27 @@
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
+        {% if request.user.is_superuser %}
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'cabinet:worker-create' %}">
+                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <svg width="12px" height="12px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g transform="translate(-247.000000, -573.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                        <g transform="translate(242.000000, 568.000000)">
+                          <g transform="translate(5.000000, 5.000000)">
+                            <path class="color-background" d="M12,0 C5.383,0 0,5.383 0,12 C0,18.617 5.383,24 12,24 C18.617,24 24,18.617 24,12 C24,5.383 18.617,0 12,0 Z M12,22 C6.486,22 2,17.514 2,12 C2,6.486 6.486,2 12,2 C17.514,2 22,6.486 22,12 C22,17.514 17.514,22 12,22 Z"></path>
+                            <path class="color-background" d="M12,5 L11,5 L11,11 L5,11 L5,12 L11,12 L11,18 L12,18 L12,12 L18,12 L18,11 L12,11 L12,5 Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                  <span class="nav-link-text ms-1">Create Worker</span>
+              </a>
+          </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link  " href="{% url 'logout' %}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

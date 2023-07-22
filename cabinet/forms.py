@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 from django.forms import DateTimeInput, Select, NullBooleanSelect, RadioSelect
 
-from cabinet.models import Task
+from cabinet.models import Task, Worker
 
 
 # from django.contrib.auth.forms import UserCreationForm
@@ -43,3 +44,13 @@ class TaskSearchForm(forms.Form):
             }
         )
     )
+
+
+class WorkerCreateForm(UserCreationForm):
+    class Meta(UserCreationForm):
+        model = Worker
+        fields = UserCreationForm.Meta.fields + (
+            "position",
+            "first_name",
+            "last_name",
+        )
