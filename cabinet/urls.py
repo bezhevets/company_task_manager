@@ -1,7 +1,17 @@
+from django.contrib.auth.views import PasswordChangeView
 from django.urls import path
 
-from cabinet.views import TaskListView, TaskCreateView, TaskUpdateView, TaskDetailView, TaskDeleteView, index, \
-    WorkerCreateView
+from cabinet.views import (
+    index,
+    TaskListView,
+    TaskCreateView,
+    TaskUpdateView,
+    TaskDetailView,
+    TaskDeleteView,
+    WorkerCreateView,
+    WorkerDetailView,
+    WorkerUpdateView, password_change,
+)
 
 urlpatterns = [
     path("", index, name="index"),
@@ -30,7 +40,22 @@ urlpatterns = [
         "worker/create/",
         WorkerCreateView.as_view(),
         name="worker-create"
-    )
+    ),
+    path(
+        "worker/<int:pk>/profile",
+        WorkerDetailView.as_view(),
+        name="worker-detail"
+    ),
+    path(
+        "worker/<int:pk>/update",
+        WorkerUpdateView.as_view(),
+        name="worker-update"
+    ),
+    path(
+        "change-password/",
+        password_change,
+        name="change-password"
+    ),
 ]
 
 

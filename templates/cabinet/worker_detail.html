@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    {{ worker.first_name}} {{ worker.last_name }}
+    {% if worker == user %}
+      <a href="{% url 'cabinet:worker-update' pk=worker.id %}" class="btn btn-secondary link-to-page">
+        Update
+      </a>
+    {% endif %}
+  </h1>
+  br
+  <p>{{ worker.position }}</p>
+  <br>
+
+{% endblock %}

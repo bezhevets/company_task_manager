@@ -1,10 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from cabinet.forms import TaskSearchForm, TaskCreateForm, WorkerCreateForm
+from cabinet.forms import TaskSearchForm, TaskCreateForm, WorkerCreateForm, ChangePasswordForm
 from cabinet.models import Task, Worker
 
 
@@ -88,3 +89,32 @@ class WorkerCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateVi
 
     def test_func(self):
         return is_admin(self.request.user)
+
+
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Worker
+    queryset = Worker.objects.all().prefetch_related("workers__task_type")
+
+
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Worker
+    fields = ["username", "first_name", "last_name", "email"]
+
+    def get_success_url(self) -> str:
+        return reverse_lazy("cabinet:worker-detail", kwargs={"pk": self.object.pk})
+
+
+@login_required
+def password_change(request) -> str:
+    user = request.user
+    if request.method == "POST":
+        form = ChangePasswordForm(user, request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your password has been changed")
+            return redirect("login")
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request,error)
+    form = ChangePasswordForm(user)
+    return render(request, 'cabinet/change_password.html', {'form': form})

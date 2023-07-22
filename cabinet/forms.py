@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from django.forms import DateTimeInput, Select, NullBooleanSelect, RadioSelect
 
 from cabinet.models import Task, Worker
@@ -54,3 +54,9 @@ class WorkerCreateForm(UserCreationForm):
             "first_name",
             "last_name",
         )
+
+
+class ChangePasswordForm(SetPasswordForm):
+    class Meta:
+        model = get_user_model()
+        fields = ["new_password1", "new_password2"]
