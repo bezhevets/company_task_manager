@@ -194,13 +194,13 @@
                             <div class="d-flex px-2 py-1">
                               <div>
                                 {% if task.priority == "Urgent"  %}
-                                  <span class="badge badge-sm bg-gradient-danger">{{ task.priority }}</span>
+                                  <span class="badge badge-sm bg-danger">{{ task.priority }}</span>
                                   {% elif task.priority == "High" %}
                                   <span class="badge badge-sm bg-gradient-warning">{{ task.priority }}</span>
                                   {% elif task.priority == "Normal" %}
                                   <span class="badge badge-sm bg-gradient-info">{{ task.priority }}</span>
                                   {% elif task.priority == "Low" %}
-                                  <span class="badge badge-sm bg-gradient-secondary">{{ task.priority }}</span>
+                                  <span class="badge badge-sm bg-secondary">{{ task.priority }}</span>
                                 {% endif %}
                               </div>
                               <div class="d-flex flex-column justify-content-center">
