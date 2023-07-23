@@ -30,8 +30,8 @@ class Worker(AbstractUser):
                f" {self.first_name} {self.last_name} " \
                f"Position: {self.position})"
 
-    # def get_absolute_url(self) -> str:
-    #     return reverse("taxi:driver-detail", kwargs={"pk": self.pk})
+    def get_absolute_url(self) -> str:
+        return reverse("cabinet:worker-detail", kwargs={"pk": self.pk})
 
 
 class TaskType(models.Model):
