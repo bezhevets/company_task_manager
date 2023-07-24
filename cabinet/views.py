@@ -124,6 +124,14 @@ class WorkerCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateVi
         return is_admin(self.request.user)
 
 
+class WorkerDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = Worker
+    success_url = reverse_lazy("cabinet:worker-list")
+
+    def test_func(self):
+        return is_admin(self.request.user)
+
+
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
     queryset = Worker.objects.all().prefetch_related("workers__task_type")
