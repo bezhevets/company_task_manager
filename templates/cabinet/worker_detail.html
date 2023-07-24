@@ -20,7 +20,7 @@
             </div>
           </div>
           {% if worker == user %}
-            <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
             <div class="nav-wrapper position-relative end-0">
               <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
                 <li class="nav-item">
@@ -63,6 +63,37 @@
               </ul>
             </div>
           </div>
+          {% endif %}
+          {% if user.is_superuser %}
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <div class="nav-wrapper position-relative end-0">
+              <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="{% url 'cabinet:worker-delete' pk=worker.id %}" role="tab" aria-selected="false">
+                    <svg class="text-dark" width="16px" height="16px" viewBox="0 0 900.5 900.5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <title>Delete</title>
+                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                          <g transform="translate(1716.000000, 291.000000)">
+                            <g transform="translate(304.000000, 151.000000)">
+                              	<path class="color-background" d="M176.415,880.5c0,11.046,8.954,20,20,20h507.67c11.046,0,20-8.954,20-20V232.487h-547.67V880.5L176.415,880.5z
+                                   M562.75,342.766h75v436.029h-75V342.766z M412.75,342.766h75v436.029h-75V342.766z M262.75,342.766h75v436.029h-75V342.766z"></path>
+                                <path class="color-background" d="M618.825,91.911V20c0-11.046-8.954-20-20-20h-297.15c-11.046,0-20,8.954-20,20v71.911v12.5v12.5H141.874
+                                  c-11.046,0-20,8.954-20,20v50.576c0,11.045,8.954,20,20,20h34.541h547.67h34.541c11.046,0,20-8.955,20-20v-50.576
+                                  c0-11.046-8.954-20-20-20H618.825v-12.5V91.911z M543.825,112.799h-187.15v-8.389v-12.5V75h187.15v16.911v12.5V112.799z"></path>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <span class="ms-1">Delete</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
           {% endif %}
         </div>
       </div>
