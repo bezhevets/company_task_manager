@@ -49,6 +49,11 @@
                         <td>
                           <p class="text-sm font-weight-bold mb-0">{{ worker.email }}</p>
                         </td>
+                        {% if user.is_superuser %}
+                        <td>
+                          <a class="btn btn-danger" href="{% url 'cabinet:worker-delete' pk=worker.id %}">Del</a>
+                        </td>
+                        {% endif %}
                       </tr>
                     {% endfor %}
                   {% else %}
@@ -68,7 +73,9 @@
         </div>
       </div>
     </div>
-    <a class="btn btn-info link-to-page" href="{% url 'cabinet:worker-create' %}">
-      <span class="nav-link-text ms-1">Create Worker</span>
-    </a>
+    {% if user.is_superuser %}
+      <a class="btn btn-info link-to-page" href="{% url 'cabinet:worker-create' %}">
+        <span class="nav-link-text ms-1">Create Worker</span>
+      </a>
+    {% endif %}
 {% endblock content %}
