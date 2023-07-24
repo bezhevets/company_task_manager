@@ -35,14 +35,30 @@
       <li class="nav-item">
         <a class="nav-link {% if 'task-list' in segment %} active" {% endif %} " href="{% url 'cabinet:worker-list' %}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-            <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <svg width="12px" height="12px" viewBox="0 0 502.648 502.648" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <title>office</title>
               <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                 <g transform="translate(-1869.000000, -293.000000)" fill="#FFFFFF" fill-rule="nonzero">
                   <g transform="translate(1716.000000, 291.000000)">
                     <g id="office" transform="translate(153.000000, 2.000000)">
-                      <path class="color-background opacity-6" d="M12.25,17.5 L8.75,17.5 L8.75,1.75 C8.75,0.78225 9.53225,0 10.5,0 L31.5,0 C32.46775,0 33.25,0.78225 33.25,1.75 L33.25,12.25 L29.75,12.25 L29.75,3.5 L12.25,3.5 L12.25,17.5 Z"></path>
-                      <path class="color-background" d="M40.25,14 L24.5,14 C23.53225,14 22.75,14.78225 22.75,15.75 L22.75,38.5 L19.25,38.5 L19.25,22.75 C19.25,21.78225 18.46775,21 17.5,21 L1.75,21 C0.78225,21 0,21.78225 0,22.75 L0,40.25 C0,41.21775 0.78225,42 1.75,42 L40.25,42 C41.21775,42 42,41.21775 42,40.25 L42,15.75 C42,14.78225 41.21775,14 40.25,14 Z M12.25,36.75 L7,36.75 L7,33.25 L12.25,33.25 L12.25,36.75 Z M12.25,29.75 L7,29.75 L7,26.25 L12.25,26.25 L12.25,29.75 Z M35,36.75 L29.75,36.75 L29.75,33.25 L35,33.25 L35,36.75 Z M35,29.75 L29.75,29.75 L29.75,26.25 L35,26.25 L35,29.75 Z M35,22.75 L29.75,22.75 L29.75,19.25 L35,19.25 L35,22.75 Z"></path>
+                        <path style="fill:#010002;" d="M455.861,253.028l-54.703-11.411c-18.637-3.904-37.037,4.638-46.765,19.824
+                            c-9.448-4.853-19.608-9.038-30.415-12.511v-32.529c0.022-24.612-20.126-44.738-44.651-44.738h-55.933
+                            c-24.655,0-44.716,20.126-44.716,44.738v32.701c-10.699,3.408-20.751,7.593-30.264,12.468
+                            c-9.728-15.251-28.15-23.857-46.809-19.953l-54.747,11.411c-24.03,5.026-39.626,28.862-34.6,52.978l13.741,65.64
+                            c4.983,24.051,28.84,39.647,52.892,34.621l17.321-3.624c8.671,12.813,20.665,24.569,36.023,34.621
+                            c31.989,20.967,74.247,32.529,119.092,32.529c68.617,0,127.721-27.589,154.943-67.215l17.602,3.689
+                            c24.03,5.004,47.887-10.57,52.87-34.621l13.762-65.64C495.508,281.89,479.912,258.054,455.861,253.028z M251.305,447.381
+                            c-40.51,0-78.475-10.203-106.797-28.862c-9.707-6.342-17.753-13.395-24.202-20.945l13.266-2.783
+                            c24.073-5.004,39.669-28.84,34.643-52.913l-12.317-59.018c7.183-3.861,14.733-7.248,22.757-10.138v10.764
+                            c0,24.569,20.104,44.695,44.716,44.695h55.933c24.548,0,44.652-20.147,44.652-44.695v-11.325
+                            c8.175,2.912,15.854,6.256,22.973,10.052L334.439,341.9c-4.983,24.073,10.591,47.909,34.664,52.913l13.395,2.804
+                            C357.52,427.191,308.101,447.381,251.305,447.381z">
+                       </path>
+                      <circle style="fill:#010002;" cx="443.954" cy="168.708" r="58.694"></circle>
+                      <path style="fill:#010002;" d="M70.736,226.172c31.752-6.644,52.029-37.77,45.471-69.501
+                        c-6.687-31.709-37.749-52.072-69.523-45.428c-31.709,6.622-52.072,37.727-45.428,69.458
+                        C7.879,212.453,38.984,232.795,70.736,226.172z">
+                      </path>
                     </g>
                   </g>
                 </g>
@@ -127,27 +143,6 @@
             <span class="nav-link-text ms-1">Profile</span>
           </a>
         </li>
-        {% if request.user.is_superuser %}
-          <li class="nav-item">
-              <a class="nav-link" href="{% url 'cabinet:worker-create' %}">
-                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                  <svg width="12px" height="12px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                      <g transform="translate(-247.000000, -573.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                        <g transform="translate(242.000000, 568.000000)">
-                          <g transform="translate(5.000000, 5.000000)">
-                            <path class="color-background" d="M12,0 C5.383,0 0,5.383 0,12 C0,18.617 5.383,24 12,24 C18.617,24 24,18.617 24,12 C24,5.383 18.617,0 12,0 Z M12,22 C6.486,22 2,17.514 2,12 C2,6.486 6.486,2 12,2 C17.514,2 22,6.486 22,12 C22,17.514 17.514,22 12,22 Z"></path>
-                            <path class="color-background" d="M12,5 L11,5 L11,11 L5,11 L5,12 L11,12 L11,18 L12,18 L12,12 L18,12 L18,11 L12,11 L12,5 Z"></path>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
-                  <span class="nav-link-text ms-1">Create Worker</span>
-              </a>
-          </li>
-        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'cabinet:change-password' %}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
