@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
@@ -47,7 +48,8 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Task.objects.all().select_related("task_type").prefetch_related("assignees")
+        queryset = (Task.objects.all().select_related("task_type")
+                    .prefetch_related("assignees").order_by(F("is_completed"), F("deadline")))
         form = TaskSearchForm(self.request.GET)
 
         if form.is_valid():
