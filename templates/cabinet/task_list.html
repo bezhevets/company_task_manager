@@ -113,6 +113,11 @@
                         {% else %}
                           <div class="circle" style="width: 20px; height: 20px; border-radius: 50%; display: inline-block; background-color: orange; margin-right: 10px;"></div>
                         {% endif %}
+                        {% if user.is_superuser %}
+                          <a href="{% url 'cabinet:task-delete' pk=task.id%}">
+                            <span class="badge badge-sm bg-danger">DEL</span>
+                          </a>
+                        {% endif %}
                         </td>
                       <td class="align-middle">
                         <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">

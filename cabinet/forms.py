@@ -61,6 +61,20 @@ class WorkerCreateForm(UserCreationForm):
         )
 
 
+class WorkerSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search of username worker",
+                "style": "width: 400px;"
+            }
+        )
+    )
+
+
 class ChangePasswordForm(SetPasswordForm):
     class Meta:
         model = get_user_model()

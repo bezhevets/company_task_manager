@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="card mb-4">
+          <div class="card-header pb-0">
+            <div class="d-flex justify-content-between align-items-center">
+              <h6 class="float-start">Our Community</h6>
+              <div>
+                {% block search %}
+                  {% include "includes/search.html" %}
+                {% endblock %}
+              </div>
+            </div>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center justify-content-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Full name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Username</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Position</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% if worker_list %}
+                    {% for worker in worker_list %}
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2">
+                            <div class="my-auto">
+                              <a href="{% url 'cabinet:worker-detail' pk=worker.id %}">
+                                  <h6 class="mb-0 text-sm">{{ worker.first_name }} {{ worker.last_name }}</h6>
+                              </a>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">{{ worker.username }}</p>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">{{ worker.position }}</p>
+                        </td>
+                        <td>
+                          <p class="text-sm font-weight-bold mb-0">{{ worker.email }}</p>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  {% else %}
+                    <tr>
+                      <td colspan="4" class="text-center">
+                        <p>There are no member yet</p>
+                      </td>
+                    </tr>
+                  {% endif %}
+                </tbody>
+              </table>
+            </div>
+            {% block pagination %}
+              {% include "includes/pagination.html" %}
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="btn btn-info link-to-page" href="{% url 'cabinet:worker-create' %}">
+      <span class="nav-link-text ms-1">Create Worker</span>
+    </a>
+{% endblock content %}
