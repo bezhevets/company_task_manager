@@ -7,7 +7,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from cabinet.forms import TaskSearchForm, TaskCreateForm, WorkerCreateForm, ChangePasswordForm, WorkerSearchForm
+from cabinet.forms import TaskSearchForm, TaskCreateForm, WorkerCreateForm, ChangePasswordForm, WorkerSearchForm, \
+    TaskUpdateForm
 from cabinet.models import Task, Worker
 
 
@@ -79,7 +80,12 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
-    fields = ["description", "is_completed"]
+    form_class = TaskUpdateForm
+
+    def get_form_kwargs(self) -> dict:
+        kwargs = super(TaskUpdateView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
     def get_success_url(self) -> str:
         pk = self.object.pk

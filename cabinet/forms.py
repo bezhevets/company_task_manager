@@ -32,9 +32,32 @@ class TaskCreateForm(forms.ModelForm):
 
 
 class TaskUpdateForm(forms.ModelForm):
+
+    assignees = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
     class Meta:
         model = Task
-        fields = ["description", "is_completed"]
+        fields = ["description", "is_completed", "priority", "deadline", "assignees"]
+        widgets = {
+            "deadline": DateTimeInput(attrs={"type": "datetime-local"}),
+            "is_completed": NullBooleanSelect(),
+            "priority": RadioSelect(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request", None)
+        super(TaskUpdateForm, self).__init__(*args, **kwargs)
+        if not self.user_is_superuser():
+            self.fields.pop("deadline")
+            self.fields.pop("assignees")
+
+    def user_is_superuser(self):
+        user = self.request.user
+        return user.is_superuser
 
 
 class TaskSearchForm(forms.Form):
