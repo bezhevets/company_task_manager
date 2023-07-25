@@ -7,8 +7,14 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from cabinet.forms import TaskSearchForm, TaskCreateForm, WorkerCreateForm, ChangePasswordForm, WorkerSearchForm, \
-    TaskUpdateForm
+from cabinet.forms import (
+    TaskSearchForm,
+    TaskCreateForm,
+    WorkerCreateForm,
+    ChangePasswordForm,
+    WorkerSearchForm,
+    TaskUpdateForm,
+)
 from cabinet.models import Task, Worker
 
 
@@ -55,14 +61,16 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = (Task.objects.all().select_related("task_type")
-                    .prefetch_related("assignees").order_by(F("is_completed"), F("deadline")))
+        queryset = (
+            Task.objects.all()
+            .select_related("task_type")
+            .prefetch_related("assignees")
+            .order_by(F("is_completed"), F("deadline"))
+        )
         form = TaskSearchForm(self.request.GET)
 
         if form.is_valid():
-            return queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
 
         return queryset
 
@@ -75,7 +83,9 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
-    queryset = Task.objects.all().select_related("task_type").prefetch_related("assignees")
+    queryset = (
+        Task.objects.all().select_related("task_type").prefetch_related("assignees")
+    )
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -84,7 +94,7 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_form_kwargs(self) -> dict:
         kwargs = super(TaskUpdateView, self).get_form_kwargs()
-        kwargs['request'] = self.request
+        kwargs["request"] = self.request
         return kwargs
 
     def get_success_url(self) -> str:
@@ -181,9 +191,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         form = WorkerSearchForm(self.request.GET)
 
         if form.is_valid():
-            return queryset.filter(
-                username__icontains=form.cleaned_data["username"]
-            )
+            return queryset.filter(username__icontains=form.cleaned_data["username"])
 
         return queryset
 
@@ -199,6 +207,6 @@ def password_change(request) -> str:
             return redirect("login")
         else:
             for error in list(form.errors.values()):
-                messages.error(request,error)
+                messages.error(request, error)
     form = ChangePasswordForm(user)
-    return render(request, 'cabinet/change_password.html', {'form': form})
+    return render(request, "cabinet/change_password.html", {"form": form})

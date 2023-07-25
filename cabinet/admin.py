@@ -4,7 +4,6 @@ from django.contrib.auth.admin import UserAdmin
 from cabinet.models import Worker, Position, TaskType, Task
 
 
-# Register your models here.
 @admin.register(Worker)
 class WorkerAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("position",)

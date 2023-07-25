@@ -4,9 +4,6 @@ from django.urls import reverse
 from django.utils.timezone import now
 
 
-# Create your models here.
-
-
 class Position(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
@@ -26,9 +23,11 @@ class Worker(AbstractUser):
         ordering = ["username"]
 
     def __str__(self) -> str:
-        return f"{self.username} (Full name:" \
-               f" {self.first_name} {self.last_name} " \
-               f"Position: {self.position})"
+        return (
+            f"{self.username} (Full name:"
+            f" {self.first_name} {self.last_name} "
+            f"Position: {self.position})"
+        )
 
     def get_absolute_url(self) -> str:
         return reverse("cabinet:worker-detail", kwargs={"pk": self.pk})
@@ -46,7 +45,7 @@ class Task(models.Model):
         ("Urgent", "Urgent"),
         ("High", "High"),
         ("Normal", "Normal"),
-        ("Low", "Low")
+        ("Low", "Low"),
     )
 
     name = models.CharField(max_length=255)
@@ -54,9 +53,7 @@ class Task(models.Model):
     deadline = models.DateTimeField(default=now)
     is_completed = models.BooleanField(default=False)
     priority = models.CharField(
-        max_length=10,
-        choices=PRIORITY_CHOICES,
-        default="Normal"
+        max_length=10, choices=PRIORITY_CHOICES, default="Normal"
     )
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     assignees = models.ManyToManyField(Worker, related_name="workers")

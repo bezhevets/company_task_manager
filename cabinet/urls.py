@@ -1,4 +1,3 @@
-from django.contrib.auth.views import PasswordChangeView
 from django.urls import path
 
 from cabinet.views import (
@@ -14,7 +13,9 @@ from cabinet.views import (
     password_change,
     TaskCompletedView,
     TaskAddOrDelWorkerView,
-    WorkerListView, WorkerDeleteView, CustomLogoutView,
+    WorkerListView,
+    WorkerDeleteView,
+    CustomLogoutView,
 )
 
 urlpatterns = [
