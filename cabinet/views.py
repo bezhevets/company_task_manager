@@ -80,7 +80,10 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     fields = ["description", "is_completed"]
-    success_url = reverse_lazy("cabinet:task-list")
+
+    def get_success_url(self) -> str:
+        pk = self.object.pk
+        return reverse_lazy("cabinet:task-detail", kwargs={"pk": pk})
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
