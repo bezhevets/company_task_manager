@@ -14,7 +14,7 @@ from cabinet.views import (
     password_change,
     TaskCompletedView,
     TaskAddOrDelWorkerView,
-    WorkerListView, WorkerDeleteView,
+    WorkerListView, WorkerDeleteView, CustomLogoutView,
 )
 
 urlpatterns = [
@@ -79,6 +79,11 @@ urlpatterns = [
         "change-password/",
         password_change,
         name="change-password"
+    ),
+    path(
+        "accounts/logout/",
+        CustomLogoutView.as_view(),
+        name="logout"
     ),
 ]
 

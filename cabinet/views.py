@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.views import LogoutView
 from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -30,6 +31,11 @@ def index(request) -> str:
     }
 
     return render(request, "cabinet/index.html", context=context)
+
+
+class CustomLogoutView(LogoutView):
+    # Redirect to the login page after logout
+    next_page = reverse_lazy("login")
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
@@ -109,7 +115,9 @@ class TaskAddOrDelWorkerView(LoginRequiredMixin, generic.View):
         else:
             task.assignees.add(user)
 
-        return redirect("cabinet:task-list")
+        url = request.environ["HTTP_REFERER"]
+
+        return redirect(url)
 
 
 def is_admin(user):
