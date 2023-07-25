@@ -49,9 +49,11 @@
                         <td>
                           <p class="text-sm font-weight-bold mb-0">{{ worker.email }}</p>
                         </td>
-                        {% if user.is_superuser %}
+                        {% if user.is_superuser and user.id != worker.id %}
                         <td>
-                          <a class="btn btn-danger" href="{% url 'cabinet:worker-delete' pk=worker.id %}">Del</a>
+                          <a href="{% url 'cabinet:worker-delete' pk=worker.id%}">
+                            <span class="badge badge-sm bg-danger">DEL</span>
+                          </a>
                         </td>
                         {% endif %}
                       </tr>
