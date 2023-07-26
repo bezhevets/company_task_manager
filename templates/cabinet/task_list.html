@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6 class="float-start">All Task</h6>
+          <div class="float-end">
+            {% block search %}
+              {% include "includes/search.html" %}
+            {% endblock %}
+            <div class="float-end d-flex align-items-center">
+              <div class="d-flex align-items-center" style="margin-right: 10px;">
+                <div class="circle" style="width: 20px; height: 20px; border-radius: 50%; display: inline-block; background-color: limegreen; margin-right: 10px;"></div>
+                <span class="text-xs font-weight-bold">completed</span>
+              </div>
+              <div class="d-flex align-items-center">
+                <div class="circle" style="width: 20px; height: 20px; border-radius: 50%; display: inline-block; background-color: orange; margin-right: 10px;"></div>
+                <span class="text-xs font-weight-bold">not completed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center justify-content-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Task</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Priority</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Members</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Deadline</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if task_list %}
+                  {% for task in task_list %}
+                    <tr>
+                      <td>
+                        <div class="d-flex px-2">
+                          <div class="my-auto">
+                            <a href="{% url 'cabinet:task-detail' pk=task.id %}">
+                                <h6 class="mb-0 text-sm">{{ task.name }}</h6>
+                            </a>
+                            <div class="d-flex gap-2">
+                              <a href="{% url "cabinet:task-detail" pk=task.id %}">
+                                <p class="text-xs text-secondary mb-0">More info</p>
+                              </a>
+                              <a href="{% url 'cabinet:task-update' pk=task.id %}">
+                                <p class="text-xs text-secondary mb-0">Update</p>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex justify-content-center align-items-center">
+                          {% if task.priority == "Urgent"  %}
+                            <span class="badge badge-sm bg-danger">{{ task.priority }}</span>
+                            {% elif task.priority == "High" %}
+                            <span class="badge badge-sm bg-gradient-warning">{{ task.priority }}</span>
+                            {% elif task.priority == "Normal" %}
+                            <span class="badge badge-sm bg-gradient-info">{{ task.priority }}</span>
+                            {% elif task.priority == "Low" %}
+                            <span class="badge badge-sm bg-secondary">{{ task.priority }}</span>
+                          {% endif %}
+                        </div>
+                      </td>
+                      <td>
+                        <p class="text-sm font-weight-bold mb-0">{{ task.description }}</p>
+                      </td>
+                      <td>
+                        <div class="avatar-group mt-2">
+                          {% if task.assignees.all %}
+                            {% for assignee in task.assignees.all %}
+                              {% if assignee == user %}
+                                <a href="{% url 'cabinet:worker-detail' pk=assignee.id %}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="You">
+                                  <img src="{% static 'img/Profile-Avatar-you.png' %}" alt="team3">
+                                </a>
+                                {% else %}
+                                  <a href="{% url 'cabinet:worker-detail' pk=assignee.id %}" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title={{ assignee.username }}>
+                                    <img src="{% static 'img/Profile-Avatar.png' %}" alt="team3">
+                                  </a>
+                              {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <p>-//-</p>
+                          {% endif %}
+                        </div>
+                        <div>
+                          <form method="post" action="{% url 'cabinet:task-add-or-del-worker' pk=task.id %}">
+                            {% csrf_token %}
+                            {% if user in task.assignees.all %}
+                              <button type="submit" class="btn btn-sm bg-gradient-faded-danger" style="height: auto; width: auto; padding: 2px; color: white;">Del me</button>
+                            {% else %}
+                              <button type="submit" class="btn btn-sm bg-gradient-faded-dark" style="height: auto; width: auto; padding: 2px; color: white;">Add me</button>
+                            {% endif %}
+                          </form>
+                        </div>
+                      </td>
+                      <td class="align-middle text-center">
+                        <span class="text-xs font-weight-bold">{{ task.deadline }}</span>
+                        </td>
+                      <td class="align-middle text-center">
+                        {% if task.is_completed %}
+                          <div class="circle" style="width: 20px; height: 20px; border-radius: 50%; display: inline-block; background-color: limegreen; margin-right: 10px;"></div>
+                        {% else %}
+                          <div class="circle" style="width: 20px; height: 20px; border-radius: 50%; display: inline-block; background-color: orange; margin-right: 10px;"></div>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                          <a href="{% url 'cabinet:task-delete' pk=task.id%}">
+                            <span class="badge badge-sm bg-danger">DEL</span>
+                          </a>
+                        {% endif %}
+                        </td>
+                      <td class="align-middle">
+                        <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
+                          <i class="fa fa-ellipsis-v text-xs"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  <tr>
+                    <td colspan="4" class="text-center">
+                      <p>There are no tasks yet</p>
+                    </td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+          {% block pagination %}
+            {% include "includes/pagination.html" %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}

@@ -1,3 +1,10 @@
 .idea
-venv
+.vscode/
+*.iml
 db.sqlite3
+.env
+venv/
+.pytest_cache/
+**__pycache__/
+it_company_task_manager/__pycache__/
+cabinet/tests/
