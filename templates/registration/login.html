@@ -18,6 +18,9 @@
                   <p class="mb-0">
                       Sign in to your workspace
                   </p>
+                  <br>
+                  <p>You can test this website.</p>
+                  <p><strong>USERNAME:</strong> test  <strong>PASSWORD:</strong> test123456</p>
                 </div>
                 <div class="card-body">
                   <form method="post" action="{% url 'login' %}">
@@ -25,7 +28,6 @@
                     {{ form|crispy }}
 
                     <input type="submit" value="Login" class="btn btn-dark" />
-{#                    <input type="hidden" name="next" value="{{ next }}" />#}
                   </form>
                 </div>
               </div>
