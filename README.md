@@ -5,6 +5,13 @@ Django project for project management
 ## Check it out
 [Task Manager deployed to Render](https://task-manager-sjvl.onrender.com/)
 
+
+You can test:
+```
+login: test
+password: test123456
+```
+
 ## Installation
 
 Python3 must be already installed
