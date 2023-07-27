@@ -3,7 +3,7 @@
 Django project for project management
 
 ## Check it out
-[Task Manager deployed to Render](task-manager-sjvl.onrender.com)
+[Task Manager deployed to Render](https://task-manager-sjvl.onrender.com/)
 
 ## Installation
 
